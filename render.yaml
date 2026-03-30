@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: tourismict-backend
+    env: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && python -c "from app import init_db; init_db()" && gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+  - type: static
+    name: tourismict-frontend
+    buildCommand: echo "static"
+    staticPublishPath: frontend
