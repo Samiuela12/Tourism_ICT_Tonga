@@ -1,11 +1,15 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 import sqlite3, os, datetime
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="frontend", static_url_path="")
 CORS(app)
 
 DB = os.path.join(os.path.dirname(__file__), "tourismict.db")
+
+@app.route("/")
+def index():
+    return send_from_directory("frontend", "index.html")
 
 def get_db():
     conn = sqlite3.connect(DB)
